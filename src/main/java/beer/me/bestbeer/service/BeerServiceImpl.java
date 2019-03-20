@@ -1,5 +1,6 @@
 package beer.me.bestbeer.service;
 
+import beer.me.bestbeer.domain.Playlist;
 import beer.me.bestbeer.dto.BeerDto;
 import beer.me.bestbeer.dto.BeerSearchDto;
 import beer.me.bestbeer.dto.BeerUpdateDto;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +23,7 @@ public class BeerServiceImpl implements BeerService {
 
   private final BeerRepository beerRepository;
   private final ModelMapper modelMapper;
+  private final SpotifyService spotifyService;
 
   @Override
   public List<Beer> findAll() {
@@ -28,11 +31,21 @@ public class BeerServiceImpl implements BeerService {
   }
 
   @Override
-  public IdealBeerDto findBy(final BeerSearchDto dto) {
+  public List<IdealBeerDto> findBy(final BeerSearchDto dto) {
     List<Beer> beerList =
         this.beerRepository.findAll(
             BeerSpecifications.search(dto.getTemperature()), Sort.by("beerStyle"));
-    return null;
+
+    return beerList.stream()
+        .map(
+            beer -> {
+              Playlist playlist = this.spotifyService.findPlaylistByBeerStyle(beer.getBeerStyle());
+              return IdealBeerDto.builder()
+                  .beerStyle(beer.getBeerStyle())
+                  .playlist(playlist)
+                  .build();
+            })
+        .collect(Collectors.toList());
   }
 
   @Override

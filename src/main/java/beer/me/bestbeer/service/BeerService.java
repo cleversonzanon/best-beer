@@ -12,7 +12,7 @@ public interface BeerService {
 
   List<Beer> findAll();
 
-  IdealBeerDto findBy(final BeerSearchDto dto);
+  List<IdealBeerDto> findBy(final BeerSearchDto dto);
 
   void create(final BeerDto dto);
 
