@@ -3,6 +3,7 @@ package beer.me.bestbeer.dto;
 import beer.me.bestbeer.domain.Playlist;
 import lombok.*;
 
+/** DTO used as response for the ideal beer by temperature search */
 @Getter
 @Setter
 @Builder

@@ -6,6 +6,7 @@ import lombok.Setter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/** Object used as response for request that doesn't have a DTO */
 @Getter
 @Setter
 public class RestMessage {

@@ -4,6 +4,7 @@ import lombok.*;
 
 import java.util.List;
 
+/** Playlist domain object */
 @Getter
 @Setter
 @Builder

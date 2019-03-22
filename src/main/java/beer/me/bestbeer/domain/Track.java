@@ -2,6 +2,7 @@ package beer.me.bestbeer.domain;
 
 import lombok.*;
 
+/** Track domain object */
 @Getter
 @Setter
 @Builder
